@@ -9,13 +9,13 @@ public final class MyStringBuilder {
 
     public void append(String string) {
         stringBuilder.append(string);
+        save();
     }
 
     public String get() {
         return stringBuilder.toString();
     }
 
-    // Сохраняем snapshot
     public void save() {
         stringBuilderHistory.add(new StringBuilderSnapshot(stringBuilder.toString()));
     }

@@ -9,6 +9,10 @@ public class StringBuilderHistory {
     }
 
     public StringBuilderSnapshot get() {
-        return snapshots.getLast();
+        if (snapshots.size() < 2) {
+            return snapshots.getLast();
+        } else {
+            return snapshots.get(snapshots.size() - 2);
+        }
     }
 }
