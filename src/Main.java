@@ -5,8 +5,8 @@ public class Main {
         ConcurrentBank bank = new ConcurrentBank();
 
         // Создание счетов
-        Account account1 = bank.createAccount(BigDecimal.valueOf(1000));
-        Account account2 = bank.createAccount(BigDecimal.valueOf(500));
+        BankAccount account1 = bank.createAccount(BigDecimal.valueOf(1000));
+        BankAccount account2 = bank.createAccount(BigDecimal.valueOf(500));
 
         // Перевод между счетами
         Thread transferThread1 = new Thread(() -> bank.transfer(account1, account2, BigDecimal.valueOf(200)));

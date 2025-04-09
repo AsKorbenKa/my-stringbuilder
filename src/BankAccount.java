@@ -1,18 +1,39 @@
 import java.math.BigDecimal;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BankAccount {
-    public void deposit(Account account, BigDecimal amount) {
-        account.setBigDecimal(account.getBigDecimal().add(amount));
+    private final Lock lock = new ReentrantLock();
+    private BigDecimal bigDecimal;
+
+    public BankAccount(BigDecimal bigDecimal) {
+        this.bigDecimal = bigDecimal;
     }
 
-    public void withdraw(Account account, BigDecimal amount) {
-        if (account.getBigDecimal().compareTo(amount) < 0) {
-            throw new RuntimeException("Недостаточно средств для снятия со счета.");
+    public void deposit(BigDecimal amount) {
+        lock.lock();
+        try {
+            if (amount.compareTo(BigDecimal.valueOf(0)) > 0) {
+                bigDecimal.add(amount);
+            }
+        } finally {
+            lock.unlock();
         }
-        account.setBigDecimal(account.getBigDecimal().subtract(amount));
     }
 
-    public BigDecimal getBalance(Account account) {
-        return account.getBigDecimal();
+    public void withdraw(BigDecimal amount) {
+        lock.lock();
+        try {
+            if (bigDecimal.compareTo(amount) < 0) {
+                throw new RuntimeException("Недостаточно средств для снятия со счета.");
+            }
+            bigDecimal.subtract(amount);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public BigDecimal getBalance() {
+        return bigDecimal;
     }
 }
