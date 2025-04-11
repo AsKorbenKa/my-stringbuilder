@@ -12,10 +12,10 @@ public class ParallelStreamCollectMapAdvancedExample {
                 new Student("Student4", Map.of("Physics", 78, "Chemistry", 85))
         );
 
-        System.out.println(getGardeAndAVG(students));
+        System.out.println(getGradeAndAVG(students));
     }
 
-    private static Map<String, Double> getGardeAndAVG(List<Student> students) {
+    private static Map<String, Double> getGradeAndAVG(List<Student> students) {
         return students.parallelStream().map(Student::getGrades)
                 .flatMap(map -> map.entrySet().stream()).collect(Collectors.groupingBy(
                         Map.Entry::getKey,
