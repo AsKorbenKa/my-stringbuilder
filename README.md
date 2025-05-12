@@ -1,1 +1,1 @@
-# my-stringbuilder
+# hibernate-example
